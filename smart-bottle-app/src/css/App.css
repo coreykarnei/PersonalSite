@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+.background{
+    background: linear-gradient(45deg, #5433ff, #30bdff, #a5fecb);
+    background-size: 200% 200%;
+    font-family: 'Calibri', sans-serif;
+    padding: 100px;
+
+    -webkit-animation: AnimationName 10s linear infinite;
+    -moz-animation: AnimationName 10s linear infinite;
+    animation: AnimationName 10s linear infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 100%}
+    50%{background-position:100% 0%}
+    100%{background-position:0% 100%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 100%}
+    50%{background-position:100% 0%}
+    100%{background-position:0% 100%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 100%}
+    50%{background-position:100% 0%}
+    100%{background-position:0% 100%}
+}
+
+.my-container{
+  background-color: white;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #000000;
+  border-radius: 20px;
+  box-shadow: 10px 10px 5px 5px #808080;
+  padding: 75px;
+  margin: auto;
+  margin-bottom: 100px;
+  width:60vw;
+}
+
+.title{
+  text-align: center;
+  margin: auto;
+  font-size: 40pt;
+  font-weight: bold;
+  margin-bottom:50px;
+}
+
+.sub-title{
+  text-align: center;
+  font-size: 28pt;
+  margin-top:0px;
+}
+
+.sub-heading{
+  text-align: center;
+  font-size: 24pt;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-top:0px;
+}
+
+.sub-sub-heading{
+  text-align: center;
+  font-size: 22pt;
+  font-weight: bold;
+  margin-top:0px;
+}
+
+.txt{
+  margin: auto;
+  font-size: 20pt;
+  width: 90%;
+  text-align:justify;
+  text-justify:inter-word;
+  line-height: 1.35;
+}
+
+.reference{
+  margin: auto;
+  font-size: 20pt;
+  width: 90%;
+  text-align:justify;
+  margin-bottom: 25px;
+}
+
+.fig-description{
+  margin: auto;
+  text-align: center;
+  font-size: 18pt;
+  width: 75%;
+  font-style: italic;
+}
+
+.img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:15px;
+  margin-bottom:15px;
+  width: 300px;
+  outline: solid 0px #30bdff;
+  transition: 0.5s linear;
+}
+
+.img_stable{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:15px;
+  margin-bottom:15px;
+  width: 500px;
+  outline: solid 0px #30bdff;
+}
+
+.img:hover{
+  outline-width: 10px;
+  width: 600px;
+  max-width: 90%;
+}
