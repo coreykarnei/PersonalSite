@@ -32,65 +32,55 @@
 				<div class="container">
 
 					<header class="major special">
-						<h2>Academic Projects</h2>
-						<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
+						<h2 class="cardHeader2">Academic Projects</h2>
 					</header>
 
 				</div>
 			</section>
 
-		<section id="two" class="wrapper style2 special">
-
-			<style>
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 40%;
-}
-
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-
-
-</style>
-
-<script type="text/javascript">
-$('img[data-enlargeable]').addClass('img-enlargeable').click(function(){
-    var src = $(this).attr('src');
-    var modal;
-    function removeModal(){ modal.remove(); $('body').off('keyup.modal-close'); }
-    modal = $('<div>').css({
-        background: 'RGBA(0,0,0,.5) url('+src+') no-repeat center',
-        backgroundSize: 'contain',
-        width:'100%', height:'100%',
-        position:'fixed',
-        zIndex:'10000',
-        top:'0', left:'0',
-        cursor: 'zoom-out'
-    }).click(function(){
-        removeModal();
-    }).appendTo('body');
-    //handling ESC
-    $('body').on('keyup.modal-close', function(e){
-      if(e.key==='Escape'){ removeModal(); }
-    });
-});
-</script>
-
-
+		<section id="projCardContainer" class="wrapper style2 special lessPadding">
 
 			<div class="container">
 
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-				<a data-enlargeable width="100"  class="image fit"><img src="images/pic01.jpg"  alt="" /></a>
+				<div class="projectCard">
+
+					<img class="projectCardImage image" src="images/bottle_cropped.jpg">
+
+					<div class="projectCardDesc">
+						<h2 >MEDICATION-ADHERENCE TRACKING<br> smart PILL BOTTLE</h2>
+						<p>We sought to address the problem of medical non-adherence, both among seniors and those with mental illness. To this end, we attached an inertial sensor along with a number of cameras to a pill bottle. We then had 5
+						participants take 10 pills each. After collecting data from all devices, a number of machine learning technique were applied to predict whether or not a pill had been taken. Using a Random Forest Classifier and a Convolutional
+						Neural Network, we were able to reach an accuracy of 95% and 94% on those models respectively. We also employed a state-of-the-art real time object recognition system to detect both the hands and face of anyone using the pill bottle.
+						With the assumption that these two objects overlapping indicates a pill-taking moment, we were able to achieve an accuracy of 80% when classifying whether or not a pill was taken. Finally, we propose a system by
+						which these models could be integrated to solve the problem of non-adherence and discuss the limitations of our work.</p>
+					</div>
+					<div class="projectCardLinks">
+						<ul class="icons">
+							<li><a href="http://smart-bottle.s3-website.us-east-2.amazonaws.com/" class="icon fa-link"></a></li>
+							<li><a href="https://github.com/cdfritz7/SmartBottle"  class="icon fa-github"></a></li>
+						</ul>
+					</div>
+
+				</div>
 
 
 
-				<p><a href="http://smart-bottle.s3-website.us-east-2.amazonaws.com/" > view smart bottle proj.</a> nisl amet adipiscing accumsan blandit accumsan sapien blandit ac amet faucibus aliquet placerat commodo. Interdum ante aliquet commodo accumsan vis phasellus adipiscing. Ornare a in lacinia. Vestibulum accumsan ac metus massa tempor. Accumsan in lacinia ornare massa amet. Ac interdum ac non praesent. Cubilia lacinia interdum massa faucibus blandit nullam. Accumsan phasellus nunc integer. Accumsan euismod nunc adipiscing lacinia erat ut sit. Arcu amet. Id massa aliquet arcu accumsan lorem amet accumsan.</p>
-				<p>Amet nibh adipiscing adipiscing. Commodo ante vis placerat interdum massa massa primis. Tempus condimentum tempus non ac varius cubilia adipiscing placerat lorem turpis at. Aliquet lorem porttitor interdum. Amet lacus. Aliquam lobortis faucibus blandit ac phasellus. In amet magna non interdum volutpat porttitor metus a ante ac neque. Nisi turpis. Commodo col. Interdum adipiscing mollis ut aliquam id ante adipiscing commodo integer arcu amet Ac interdum ac non praesent. Cubilia lacinia interdum massa faucibus blandit nullam. Accumsan phasellus nunc integer. Accumsan euismod nunc adipiscing lacinia erat ut sit. Arcu amet. Id massa aliquet arcu accumsan lorem amet accumsan commodo odio cubilia ac eu interdum placerat placerat arcu commodo lobortis adipiscing semper ornare pellentesque.</p>
-				<p>Amet nibh adipiscing adipiscing. Commodo ante vis placerat interdum massa massa primis. Tempus condimentum tempus non ac varius cubilia adipiscing placerat lorem turpis at. Aliquet lorem porttitor interdum. Amet lacus. Aliquam lobortis faucibus blandit ac phasellus. In amet magna non interdum volutpat porttitor metus a ante ac neque. Nisi turpis. Commodo col. Interdum adipiscing mollis ut aliquam id ante adipiscing commodo integer arcu amet blandit adipiscing arcu ante.</p>
+				<div class="projectCard">
+
+					<img class="projectCardImage image" src="images/fundus.jpg">
+
+					<div class="projectCardDesc">
+						<h2>EYE DISEASE RECOGNITION USING DEEP LEARNING</h2>
+						<p>nisl amet adipiscing accumsan blandit accumsan sapien blandit ac amet faucibus aliquet plac</p>
+					</div>
+					<div class="projectCardLinks">
+						<ul class="icons">
+							<li><a href="https://www.instagram.com/corey_karnei_/" class="icon fa-link"></a></li>
+							<li><a href="https://github.com/coreykarnei"  class="icon fa-github"></a></li>
+						</ul>
+					</div>
+
+				</div>
 
 			</div>
 		</section>
