@@ -2430,6 +2430,20 @@
         border-radius: 25px 0px 0px 25px;
     }
 
+        .projectCardImage:hover{
+                cursor: pointer;
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+
+    .projectCardImageSolo{
+            display: block;
+            float: left;
+            width: 23%;
+            height: 100%;
+            background-color: red;
+            border-radius: 25px 0px 0px 25px;
+        }
+
     .projectCardDesc{
         display: block;
         float: left;
@@ -2444,7 +2458,7 @@
         }
 
         .projectCardDesc p{
-
+            text-align: left;
 
                 }
 
@@ -2452,40 +2466,42 @@
         display: block;
         float: left;
         width: 12%;
-        height: 420px;
-        border-left: 1px;
+        height: 100%;
+        border-left: 2px;
         border-style: solid;
         padding: 40px;
         color: #aaa;
-        margin: 20px 0;
+
+
+        }
+
+
+
+    .projectCardLinks a {
+        font-size: 50px;
+        color: #aaa;
         -moz-transition: color 0.2s ease-in-out;
         -webkit-transition: color 0.2s ease-in-out;
         -ms-transition: color 0.2s ease-in-out;
         transition: color 0.2s ease-in-out;
         text-decoration: none;
-
-        }
-
-        .projectCardLinks a:active, a:hover {
-            color: #666;
-        }
-
-    .projectCardLinks a {
-        font-size: 40px;
-        color: #aaa;
     }
+
+        .projectCardLinks a:hover {
+                        color: #666;
+                    }
 
     .projectCardLinks li {
             display: block !important;
-            height: 80px !important;
-            margin: 71px 0px;
+            height: 100px !important;
+            margin: 90px 0px;
             padding: 0 !important;
         }
 
 
     #projCardContainer{
-        background-attachment: fixed;
-    	background-image: url("images/overlay.png"), url("../../images/pic01.jpg");
+
+    	background-image: url("images/overlay.png"), url("../../images/try2.jpeg");
     	background-position: center top;
 
         padding: 2em 0 4em 0 !important;
@@ -2493,9 +2509,39 @@
 
     .cardHeader2{
          display: inline-block;
-         margin: 0 !important;
+         margin: 5px !important;
     }
 
+    .cardParagraph2{
+             display: inline-block;
+             margin: 5px !important;
+        }
+
+
+    .projectCardLinksSolo{
+                display: block;
+                float: left;
+                width: 12%;
+                height: 100%;
+                border-left: 2px;
+                border-style: solid;
+                padding: 215px 40px 40px 40px;
+                color: #aaa;
+            }
+
+        .projectCardLinksSolo a {
+                font-size: 50px;
+                color: #aaa;
+                -moz-transition: color 0.2s ease-in-out;
+                -webkit-transition: color 0.2s ease-in-out;
+                -ms-transition: color 0.2s ease-in-out;
+                transition: color 0.2s ease-in-out;
+                text-decoration: none;
+            }
+
+        .projectCardLinksSolo a:hover {
+                        color: #666;
+                    }
 
 
 
