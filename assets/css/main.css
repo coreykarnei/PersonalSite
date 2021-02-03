@@ -2312,6 +2312,9 @@
 			display: none;
 		}
 
+
+
+
 /* Image */
 
 	.image {
@@ -2408,6 +2411,155 @@
 				width: 100%;
 			}
 
+/* Index Photos */
+
+
+    .indexPhotoImageDiv{
+        vertical-align:top;
+        display:inline-block;
+        position: relative;
+        height: 584;
+        margin-bottom: 20px;
+    }
+
+         @media screen and (max-width: 1280px) {
+
+
+                                   .indexPhotoImageDiv h2{
+                                                           font-size: 30px !important;
+                                                       }
+
+                                   .indexPhotoImageDiv h3{
+                                                           font-size: 20px !important;
+                                                               }
+
+                                   .indexPhotoContentRight{
+                                           display: inline;
+                                           height: auto;
+                                           text-align: center;
+                                           position: absolute;
+                                           right: 6%
+                                           top: 27%;
+                                       }
+
+                                       .indexPhotoContentLeft{
+                                               display: inline;
+                                               height: auto;
+                                               text-align: center;
+                                               position: absolute;
+                                               left: 12%
+                                               top: 30%;
+                                           }
+
+                                 }
+
+
+         @media screen and (max-width: 650px) {
+
+
+                             .indexPhotoImageDiv h2{
+                                                     font-size: 30px !important;
+                                                 }
+
+                             .indexPhotoImageDiv h3{
+                                                     font-size: 20px !important;
+                                                         }
+
+                             .indexPhotoContentRight{
+                                     display: inline;
+                                     height: auto;
+                                     text-align: center;
+                                     position: absolute;
+                                     right: 1% !important;
+                                     top: 30%;
+                                 }
+
+                                 .indexPhotoContentLeft{
+                                         display: inline;
+                                         height: auto;
+                                         text-align: center;
+                                         position: absolute;
+                                         left: 5% !important;
+                                         top: 22% !important;
+                                     }
+
+                     		}
+
+         @media screen and (max-width: 480px) {
+
+
+                    .indexPhotoImageDiv h2{
+                                            font-size: 16px !important;
+                                        }
+
+                    .indexPhotoImageDiv h3{
+                                            font-size: 11px !important;
+                                                }
+
+                    .indexPhotoContentRight{
+                            display: inline;
+                            height: auto;
+                            text-align: center;
+                            position: absolute;
+                            right: 5% !important;
+                            top: 30%;
+                        }
+
+                        .indexPhotoContentLeft{
+                                display: inline;
+                                height: auto;
+                                text-align: center;
+                                position: absolute;
+                                left: 12% !important;
+                                top: 30%;
+                            }
+
+            		}
+
+
+
+    .indexPhotoImage{
+        display: inline-block;
+        border-radius: 25px;
+        max-width: 66%;
+        height: auto;
+
+    }
+
+
+    .indexPhotoContentRight{
+        display: inline;
+        height: auto;
+        text-align: center;
+        position: absolute;
+        right: 10%;
+        top: 30%;
+    }
+
+    .indexPhotoContentLeft{
+            display: inline;
+            height: auto;
+            text-align: center;
+            position: absolute;
+            left: 10%;
+            top: 30%;
+        }
+
+
+
+
+
+        .indexPhotoImageDiv h2{
+                        font-size: 50px;
+                    }
+
+        .indexPhotoImageDiv h3{
+                        font-size: 30px;
+                            }
+
+
+
+
 /* projectCard */
 
     .projectCard {
@@ -2426,7 +2578,6 @@
         float: left;
         width: 23%;
         height: 100%;
-        background-color: red;
         border-radius: 25px 0px 0px 25px;
     }
 
@@ -2450,6 +2601,7 @@
         width: 64%;
         height: 100%;
         padding: 20px;
+        overflow: hidden;
 
     }
         .projectCardDesc h2{
@@ -2465,14 +2617,14 @@
     .projectCardLinks{
         display: block;
         float: left;
-        width: 12%;
+        width: 13%;
         height: 100%;
-        border-left: 2px;
+        border-left: 1px;
         border-style: solid;
-        padding: 40px;
-        color: #aaa;
-
-
+        padding: 2%;
+        color: #000;
+        border-radius: 0px 25px 25px 0px;
+        background-color: #f8f8ff
         }
 
 
@@ -2499,6 +2651,11 @@
         }
 
 
+
+
+
+
+
     #projCardContainer{
 
     	background-image: url("images/overlay.png"), url("../../images/try2.jpeg");
@@ -2521,17 +2678,20 @@
     .projectCardLinksSolo{
                 display: block;
                 float: left;
-                width: 12%;
+                width: 13%;
                 height: 100%;
-                border-left: 2px;
+                border-left: 1px;
                 border-style: solid;
-                padding: 215px 40px 40px 40px;
-                color: #aaa;
+                padding: 2%;
+                color: #000;
+                border-radius: 0px 25px 25px 0px;
+                background-color: #f8f8ff
             }
 
         .projectCardLinksSolo a {
                 font-size: 50px;
                 color: #aaa;
+                vertical-align:center;
                 -moz-transition: color 0.2s ease-in-out;
                 -webkit-transition: color 0.2s ease-in-out;
                 -ms-transition: color 0.2s ease-in-out;
@@ -2544,6 +2704,13 @@
                     }
 
 
+        .projectCardLinksSolo li{
+                vertical-align:center;
+                display: block !important;
+                height: 100px !important;
+                margin-top: 180px;
+                padding: 0 !important;
+            }
 
 
 
@@ -2815,7 +2982,7 @@
 
 	}
 
-/* Table */
+/* Table
 
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
@@ -2882,10 +3049,22 @@
 			table.alt tfoot {
 				border-top: 0;
 			}
-
+*/
 /* Wrapper */
 
+    .pNoMargin{
+        margin: 0 !important;
+    }
 
+    .tableNoMargin{
+        margin: 0 !important;
+        text-align: left;
+    }
+
+    .tdWithPadding
+    {
+        padding:0 25px;
+    }
 
 
 	body.is-touch .wrapper.style3 {
