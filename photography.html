@@ -18,25 +18,67 @@
         </ul>
     </nav>
 </header>
+<script>
+    function makeFullScreen(spec_id) {
+     var divObj = document.getElementById(spec_id);
+   //Use the specification method before using prefixed versions
+  if (divObj.requestFullscreen) {
+    divObj.requestFullscreen();
+  }
+  else if (divObj.msRequestFullscreen) {
+    divObj.msRequestFullscreen();
+  }
+  else if (divObj.mozRequestFullScreen) {
+    divObj.mozRequestFullScreen();
+  }
+  else if (divObj.webkitRequestFullscreen) {
+    divObj.webkitRequestFullscreen();
+  } else {
+    console.log("Fullscreen API is not supported");
+  }
+
+}
+</script>
 
 
 <section id="main" >
     <div class="container">
 
-        <header class="major special">
-            <h2 class="cardHeader2">amateur photography</h2>
-            <img src="images/wip.png" style="width: 100%;">
-        </header>
+        <div class="container">
+            <header class="major special">
+                <h2>Amateur Photography</h2>
+                <p>Click a picture to expand it</p>
+            </header>
+            <div class="p_row">
+                <div class="p_column" >
+                    <img id="cinque_terres" onClick="makeFullScreen('cinque_terres')"  	src="images/photography/pic2.jpg" alt="" />
+                    <img id="p9" onClick="makeFullScreen('p9')" style="float: right; "  src="images/photography/p9.jpg" alt="" />
+                    <img id="p13" onClick="makeFullScreen('p13')"  	src="images/photography/p13.png" alt="" />
+                    <img id="p14" onClick="makeFullScreen('p14')"  	src="images/photography/p14.png" alt="" />
+                    <img id="p4" onClick="makeFullScreen('p4')"  	src="images/photography/p4.jpg" alt="" />
+                    <img id="p5" onClick="makeFullScreen('p5')" style="float: right; "  src="images/photography/p5.png" alt="" />
+                    <img id="p3" onClick="makeFullScreen('p3')" style="float: right; "  src="images/photography/p3.png" alt="" />
+                </div>
+                <div class="p_column" >
+                    <img  id="blows" onClick="makeFullScreen('blows')" style="float: right; "  src="images/photography/pic1.jpg" alt="" />
+                    <img id="p10" onClick="makeFullScreen('p10')"  	src="images/photography/p10.png" alt="" />
+                    <img id="p11" onClick="makeFullScreen('p11')" style="float: right; "  src="images/photography/p11.png" alt="" />
+                    <img id="p6" onClick="makeFullScreen('p6')"  	src="images/photography/p6.jpg" alt="" />
+                    <img  id="p8" onClick="makeFullScreen('p8')" style="float: right; "  src="images/photography/p8.png" alt="" />
+
+                    <img id="p7" onClick="makeFullScreen('p7')"  	src="images/photography/p7.png" alt="" />
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
 
     </div>
-</section>
-
-<section>
-    <div>
-
-
-    </div>
-
 </section>
 
 
