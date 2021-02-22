@@ -2526,6 +2526,10 @@
 
     }
 
+        .indexPhotoImage:hover{
+            cursor: pointer;
+        }
+
 
     .indexPhotoContentRight{
         display: inline;
@@ -2564,12 +2568,30 @@
 
     .projectCard {
         display-width: 100%;
-        height: 470px;
+        height: 480px;
         background-color: white;
         margin: 40px 0px;
         border-radius: 25px;
         box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
+
+
     }
+
+    @media screen and (max-width: 1030px) {
+
+            .projectCard{
+                height: 640px;
+            }
+        }
+
+    @media screen and (max-width: 830px) {
+
+                .projectCard{
+                    height: 640px;
+                }
+            }
+
+
 
 
 
@@ -2583,8 +2605,38 @@
 
         .projectCardImage:hover{
                 cursor: pointer;
-                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+                box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
             }
+
+        @media screen and (max-width: 1030px) {
+
+            .projectCardImage{
+                width: 35%;
+            }
+        }
+
+        @media screen and (max-width: 830px) {
+
+                .projectCardImage{
+                    width: 40%;
+                }
+            }
+
+        @media screen and (max-width: 670px) {
+
+                        .projectCardImage{
+                            width: 50%;
+                        }
+                    }
+
+        @media screen and (max-width: 550px) {
+
+                        .projectCardImage{
+                            display: none;
+                            vertical-align: bottom;
+                            width: 100%;
+                        }
+                    }
 
     .projectCardImageSolo{
             display: block;
@@ -2595,6 +2647,35 @@
             border-radius: 25px 0px 0px 25px;
         }
 
+        @media screen and (max-width: 1030px) {
+
+                .projectCardImageSolo{
+                    width: 35%;
+                }
+            }
+
+        @media screen and (max-width: 830px) {
+
+                        .projectCardImageSolo{
+                            width: 40%;
+                        }
+                    }
+
+        @media screen and (max-width: 670px) {
+
+                        .projectCardImageSolo{
+                            width: 50%;
+                        }
+                    }
+
+        @media screen and (max-width: 550px) {
+
+                            .projectCardImageSolo{
+                                display: none;
+                                width: 60%;
+                            }
+                        }
+
     .projectCardDesc{
         display: block;
         float: left;
@@ -2602,6 +2683,13 @@
         height: 100%;
         padding: 20px;
         overflow: hidden;
+
+
+        pointer-events: none;
+        cursor: not-allowed;
+        filter: alpha(opacity=65);
+        -webkit-box-shadow: none;
+        box-shadow: none;
 
     }
         .projectCardDesc h2{
@@ -2612,6 +2700,44 @@
         .projectCardDesc p{
             text-align: left;
 
+                }
+
+        @media screen and (max-width: 1030px) {
+
+                .projectCardDesc{
+                    width: 50%;
+                }
+            }
+
+        @media screen and (max-width: 830px) {
+
+                    .projectCardDesc{
+                        width: 60%;
+
+                        pointer-events: fill;
+                        cursor: pointer;
+                        filter: alpha(opacity=65);
+
+
+                    }
+                }
+
+        @media screen and (max-width: 670px) {
+
+                    .projectCardDesc{
+                        width: 50%;
+
+                    }
+                }
+
+        @media screen and (max-width: 550px) {
+
+                    .projectCardDesc{
+                        width: 100%;
+                        display: block;
+                        vertical-align: top;
+
+                    }
                 }
 
     .projectCardLinks{
@@ -2626,6 +2752,22 @@
         border-radius: 0px 25px 25px 0px;
         background-color: #f8f8ff
         }
+
+        @media screen and (max-width: 1030px) {
+
+                .projectCardLinks{
+
+                    width: 15%;
+                }
+            }
+
+        @media screen and (max-width: 830px) {
+
+                   .projectCardLinks{
+
+                       display: none;
+                   }
+               }
 
 
 
@@ -2649,6 +2791,13 @@
             margin: 90px 0px;
             padding: 0 !important;
         }
+
+        @media screen and (max-width: 1030px) {
+
+                .projectCardLinks li{
+                    margin: 160px 3px;
+                }
+            }
 
 
 
@@ -2711,6 +2860,28 @@
                 margin-top: 180px;
                 padding: 0 !important;
             }
+
+            @media screen and (max-width: 1030px) {
+
+                        .projectCardLinksSolo{
+                            width: 15%
+                        }
+
+
+                        .projectCardLinksSolo li{
+                            margin: 280px 3px;
+                        }
+                    }
+
+            @media screen and (max-width: 830px) {
+
+                               .projectCardLinksSolo{
+
+                                   display: none;
+                               }
+                           }
+
+
 
 
 
@@ -3277,11 +3448,11 @@
 	.navPanelToggle {
 		text-decoration: none;
 		text-decoration: none;
-		height: 100%;
+		height: 100px;
 		left: 0;
 		position: absolute;
 		top: 0;
-		width: 100%;
+		width: 125px;
 		display: none;
 	}
 

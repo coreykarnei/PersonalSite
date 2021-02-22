@@ -58,7 +58,27 @@
 					</div>
 				</section>
 				-->
+		<script>
+        function makeFullScreen(spec_id) {
+         var divObj = document.getElementById(spec_id);
+       //Use the specification method before using prefixed versions
+      if (divObj.requestFullscreen) {
+        divObj.requestFullscreen();
+      }
+      else if (divObj.msRequestFullscreen) {
+        divObj.msRequestFullscreen();
+      }
+      else if (divObj.mozRequestFullScreen) {
+        divObj.mozRequestFullScreen();
+      }
+      else if (divObj.webkitRequestFullscreen) {
+        divObj.webkitRequestFullscreen();
+      } else {
+        console.log("Fullscreen API is not supported");
+      }
 
+    }
+     </script>
 
 
 			<!-- Two -->
@@ -97,8 +117,8 @@
 							<p>I enjoy taking pictures from time to time</p>
 						</header>
 						<div class="row 150%">
-							<div class="indexPhotoImageDiv">
-								<img class="indexPhotoImage" style="float: left;" src="images/photography/pic2.jpg" alt="" />
+							<div class="indexPhotoImageDiv" >
+								<img id="cinque_terre" onClick="makeFullScreen('cinque_terre')" class="indexPhotoImage" 	src="images/photography/pic2.jpg" alt="" />
 								<div class="indexPhotoContentRight" style="float: right; " >
 									<header>
 										<h3 >Cinque Terre, </h3>
@@ -117,7 +137,7 @@
 										<h2>North <br>Carolina</h2>
 									</header>
 								</div>
-								<img class="indexPhotoImage" id="blow" style="float: right; "  src="images/photography/pic1.jpg" alt="" />
+								<img class="indexPhotoImage" id="blow" onClick="makeFullScreen('blow')" style="float: right; "  src="images/photography/pic1.jpg" alt="" />
 
 							</div>
 
@@ -137,7 +157,7 @@
 						<header class="major">
 							<h2>need to contact me?</h2>
 							<ul class="actions">
-								<li><a href="mailto:themanhimself@coreykarnei.com" class="button special big">Get in touch</a></li>
+								<li><a href="mailto:coreykarnei@utexas.edu" class="button special big">Get in touch</a></li>
 							</ul>
 						</header>
 
