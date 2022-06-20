@@ -42,12 +42,40 @@
 
 
 
-
 		<section id="projCardContainer" class="wrapper style2 special lessPadding">
 
 			<div class="container">
 
 				<div >
+
+					<div class="projectCard" >
+
+						<a href="https://www.linkedin.com/feed/update/urn:li:activity:6896533701019131904/" target="_blank">
+							<img class="projectCardImage image" src="images/harry-potter-cloak.jpg">
+						</a>
+
+						<div class="projectCardDesc" style="cursor: pointer;" onclick="window.location=https://www.linkedin.com/feed/update/urn:li:activity:6896533701019131904/">
+							<h2>HARRY POTTER'S VANISHING SPELL</h2>
+							<p>
+								Combining Object Dectection/Masking with Image Inpainting and a NLP model provides the eerie effect of objects vanishing when a magic word is said!
+							</p>
+							<p>
+								First, a Google word detection algorithm is applied to the audio which detects when the word "abracadabra" is said. The next word said is the passed to the rest of the system as the object to be 
+								masked. Then MaskRCNN, an Object Segmentation neural network, looks through the frames and picks out any instances of the target object. Finally, an Image Inpainting neural network attempts to fill 
+								in the section containing the segmented object with a plausible background.    
+							</p>
+							<p>
+								The end result is a video where it appears the user is making objects vanish from sight just by uttering some magic words!
+							</p>
+						</div>
+						<div class="projectCardLinks">
+							<ul class="icons">
+								<li><a href="https://www.linkedin.com/feed/update/urn:li:activity:6896533701019131904/" class="icon fa-link"></a></li>
+								<li><a href="https://github.com/coreykarnei/MaskRCNN_and_Inpainting_Videos"  class="icon fa-github"></a></li>
+							</ul>
+						</div>
+
+					</div>
 
 					<div class="projectCard" >
 
