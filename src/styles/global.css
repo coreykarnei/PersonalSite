@@ -1,0 +1,77 @@
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/inter';
+
+:root {
+  --bg: #0a0f1f;
+  --bg-deep: #060912;
+  --bg-elev: #11182f;
+  --orange: #ff8a00;
+  --orange-warm: #ffb347;
+  --orange-glow: rgba(255, 138, 0, 0.45);
+  --text: #f5f5f4;
+  --muted: #9ca3af;
+  --rule: rgba(245, 245, 244, 0.08);
+
+  --font-display: 'Space Grotesk Variable', system-ui, sans-serif;
+  --font-body: 'Inter Variable', system-ui, sans-serif;
+
+  --max-w: 1200px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+a {
+  color: var(--orange-warm);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+
+a:hover {
+  color: var(--orange);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--orange);
+  color: var(--bg-deep);
+}

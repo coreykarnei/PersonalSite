@@ -1,0 +1,194 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import HeroFallback from '../components/HeroFallback.astro';
+import ConstructionHero from '../components/ConstructionHero';
+---
+
+<Layout
+  title="Corey Karnei — under construction"
+  description="Corey Karnei. ML engineer in NYC. Site under construction."
+>
+  <main class="page">
+    <section class="hero">
+      <HeroFallback />
+      <ConstructionHero client:only="react" />
+
+      <div class="hero-content">
+        <p class="eyebrow">CoreyKarnei.com</p>
+        <h1 class="title">
+          <span class="title-row-1">under</span>
+          <span class="title-row-2">construction.</span>
+        </h1>
+        <p class="sub">
+          New site is in progress. In the meantime, here's what's worth a look.
+        </p>
+
+        <div class="ctas">
+          <a class="btn primary" href="/photography">
+            <span>Photography</span>
+            <svg
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14"></path>
+              <path d="M13 6l6 6-6 6"></path>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-deep);
+  }
+
+  .hero {
+    position: relative;
+    flex: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    width: min(var(--max-w), 100% - 3rem);
+    margin: 0 auto;
+    padding: 4rem 0;
+    pointer-events: none;
+  }
+
+  .hero-content > * {
+    pointer-events: auto;
+  }
+
+  .eyebrow {
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange-warm);
+    opacity: 0.85;
+  }
+
+  .title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(2.5rem, 9vw, 6rem);
+    font-weight: 600;
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    color: var(--text);
+  }
+
+  .title-row-1 {
+    display: block;
+    color: var(--muted);
+    font-weight: 300;
+    font-size: 0.5em;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4em;
+  }
+
+  .title-row-2 {
+    display: block;
+    background: linear-gradient(
+      180deg,
+      #fff 0%,
+      #fff 50%,
+      var(--orange-warm) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .sub {
+    max-width: 36ch;
+    color: var(--muted);
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    margin: 0 0 2rem;
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.85rem 1.25rem;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: transform 160ms ease, background 160ms ease,
+      border-color 160ms ease, color 160ms ease;
+  }
+
+  .btn.primary {
+    background: var(--orange);
+    color: #1a0d00;
+    box-shadow: 0 0 0 1px rgba(255, 138, 0, 0.4),
+      0 12px 30px -12px var(--orange-glow);
+  }
+
+  .btn.primary:hover {
+    background: var(--orange-warm);
+    color: #1a0d00;
+    transform: translateY(-1px);
+  }
+
+  .btn.ghost {
+    background: rgba(245, 245, 244, 0.04);
+    color: var(--text);
+    border-color: var(--rule);
+  }
+
+  .btn.ghost:hover {
+    background: rgba(245, 245, 244, 0.08);
+    border-color: rgba(255, 179, 71, 0.3);
+    color: var(--orange-warm);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 640px) {
+    .hero-content {
+      padding: 3rem 0;
+    }
+    .ctas {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .btn {
+      justify-content: center;
+    }
+  }
+</style>
