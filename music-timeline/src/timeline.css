@@ -1,0 +1,318 @@
+.mt-root {
+  --bg: #07080c;
+  --ink: #eef1f8;
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  background:
+    radial-gradient(1200px 700px at 22% 8%, #12151f 0%, rgba(18,21,31,0) 60%),
+    radial-gradient(1000px 800px at 85% 100%, #0d1119 0%, rgba(13,17,25,0) 55%),
+    var(--bg);
+  color: var(--ink);
+  overflow: hidden;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.mt-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5000; /* above the flowing covers, below hovered cover + tooltip */
+  max-width: 520px;
+  padding: 34px 90px 60px 46px;
+  pointer-events: none;
+  background: radial-gradient(120% 120% at 0% 0%, rgba(7,8,12,0.94) 0%, rgba(7,8,12,0.7) 42%, rgba(7,8,12,0) 78%);
+}
+.mt-header h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #f6f8ff;
+}
+.mt-header p {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #8b93a7;
+  max-width: 380px;
+}
+
+.mt-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #2a2f3d transparent;
+  cursor: grab;
+  touch-action: pan-x;
+}
+.mt-scroll.is-grabbing { cursor: grabbing; }
+.mt-scroll.is-grabbing .mt-cover { cursor: grabbing; }
+.mt-scroll::-webkit-scrollbar { height: 8px; }
+.mt-scroll::-webkit-scrollbar-thumb { background: #262b38; border-radius: 8px; }
+
+.mt-stage { position: relative; }
+
+/* hover guide line from an album down to its exact date on the axis */
+.mt-guide {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 45;
+}
+.mt-guide-line {
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-dasharray: 2 4;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+.mt-guide-dot {
+  fill: currentColor;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+/* covers */
+.mt-cover {
+  position: absolute;
+  z-index: 2;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 220ms cubic-bezier(.2,.7,.3,1), opacity 220ms ease, box-shadow 220ms ease;
+  transform-origin: center bottom;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+}
+.mt-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  display: block;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+.mt-cover.is-active {
+  transform: translateY(-10px) scale(1.34);
+  z-index: 40;
+  opacity: 1 !important;
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.7),
+    0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent),
+    0 0 34px 2px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+/* click = commit: a bigger, brighter, "playing" state that persists */
+.mt-cover.is-selected {
+  transform: translateY(-16px) scale(1.62);
+  opacity: 1 !important;
+  box-shadow:
+    0 26px 60px rgba(0, 0, 0, 0.78),
+    0 0 0 1.5px color-mix(in srgb, var(--accent) 80%, transparent),
+    0 0 52px 6px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+/* play affordance: hint on hover, "playing" on select */
+.mt-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  width: 34%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(8, 10, 14, 0.55);
+  backdrop-filter: blur(3px);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 220ms cubic-bezier(.2,.7,.3,1);
+}
+.mt-cover.is-active .mt-play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.mt-cover.is-selected .mt-play {
+  background: color-mix(in srgb, var(--accent) 42%, rgba(8,10,14,0.55));
+  font-size: 9px;
+}
+
+/* progress ring around a selected/playing album (previews snippet playback) */
+.mt-ring {
+  position: absolute;
+  inset: -7px;
+  pointer-events: none;
+}
+.mt-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.mt-ring circle { fill: none; stroke-width: 2.4; stroke-linecap: round; }
+.mt-ring circle.bg { stroke: rgba(255, 255, 255, 0.16); }
+.mt-ring circle.fg {
+  stroke: var(--accent);
+  filter: drop-shadow(0 0 4px var(--accent));
+  stroke-dasharray: 295;
+  transition: stroke-dashoffset 140ms linear; /* driven by real playback progress */
+}
+
+/* axis */
+.mt-axis { position: absolute; left: 0; z-index: 3; }
+.mt-axis-line {
+  position: absolute;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(120,130,155,0) 0%, rgba(120,130,155,0.5) 5%, rgba(120,130,155,0.5) 96%, rgba(120,130,155,0.28) 100%);
+}
+.mt-tick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  text-align: center;
+}
+.mt-tick-dot {
+  display: block;
+  width: 4px; height: 4px;
+  margin: -2px auto 0;
+  border-radius: 50%;
+  background: #737d94;
+}
+.mt-year {
+  display: block;
+  margin-top: 12px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  color: #6a7288;
+}
+.mt-axis-arrow {
+  position: absolute;
+  top: -8px;
+}
+.mt-axis-arrow path {
+  fill: none;
+  stroke: rgba(120, 130, 155, 0.45);
+  stroke-width: 1;
+}
+
+/* tooltip */
+.mt-tip {
+  position: absolute;
+  z-index: 10000;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  min-width: 150px;
+  max-width: 260px;
+  padding: 10px 13px;
+  border-radius: 10px;
+  background: rgba(16, 19, 27, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  text-align: left;
+  animation: mt-pop 160ms ease;
+}
+.mt-tip::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: -5px;
+  width: 9px; height: 9px;
+  transform: translateX(-50%) rotate(45deg);
+  background: rgba(16, 19, 27, 0.92);
+  border-right: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.mt-tip-song {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.25;
+  border-left: 2px solid var(--accent);
+  padding-left: 8px;
+  margin-left: -2px;
+}
+.mt-tip-meta { margin-top: 5px; font-size: 12.5px; color: #aab2c6; }
+.mt-tip-album { color: #cdd4e4; }
+.mt-tip-genre {
+  margin-top: 3px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  opacity: 0.9;
+}
+@keyframes mt-pop {
+  from { opacity: 0; transform: translate(-50%, -94%); }
+  to { opacity: 1; transform: translate(-50%, -100%); }
+}
+
+/* now-playing panel + interactive in/out snippet picker */
+.mt-panel { min-width: 240px; max-width: 300px; pointer-events: auto; } /* re-enable events for the picker */
+.mt-picker {
+  position: relative;
+  margin-top: 11px;
+  height: 24px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  touch-action: none;
+  cursor: pointer;
+}
+.mt-picker-win {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: color-mix(in srgb, var(--accent) 26%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 75%, transparent);
+  border-radius: 5px;
+  cursor: grab;
+}
+.mt-picker-h {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 9px;
+  border-radius: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 7px var(--accent);
+  cursor: ew-resize;
+}
+.mt-picker-h-l { left: -5px; }
+.mt-picker-h-r { right: -5px; }
+.mt-picker-head {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: #fff;
+  box-shadow: 0 0 6px #fff;
+  pointer-events: none;
+  transition: left 140ms linear;
+}
+.mt-picker-times {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 10px;
+  color: #8b93a7;
+  font-variant-numeric: tabular-nums;
+}
+.mt-picker-times span:nth-child(2) { color: var(--accent); opacity: 0.85; }
+.mt-noprev {
+  margin-top: 9px;
+  font-size: 11px;
+  color: #6a7288;
+  font-style: italic;
+}
+
+.mt-hint {
+  position: absolute;
+  right: 30px; bottom: 22px;
+  z-index: 5;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #545c70;
+  pointer-events: none;
+}

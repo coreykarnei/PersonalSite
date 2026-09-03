@@ -1,0 +1,7 @@
+
+# full-length local tracks never get committed — only trimmed clips deploy
+public/local/*.m4a
+public/local/*.mp3
+
+# puppeteer reference screenshots — ~100MB, regenerate with `npm run shot`
+shots/

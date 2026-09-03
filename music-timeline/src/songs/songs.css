@@ -1,0 +1,138 @@
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; height: 100%; }
+
+.sg-root {
+  min-height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+  background:
+    radial-gradient(1000px 600px at 50% 0%, #12151f 0%, rgba(18,21,31,0) 60%),
+    #07080c;
+  color: #eef1f8;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.sg-loading { justify-content: center; color: #8b93a7; }
+
+.sg-head {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 26px 8px 10px;
+}
+.sg-head h1 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+.sg-progress { font-size: 13px; color: #8b93a7; font-variant-numeric: tabular-nums; }
+
+.sg-card {
+  width: 100%;
+  max-width: 560px;
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(16,19,27,0.85);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+}
+.sg-art {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 0 auto;
+  box-shadow: 0 14px 44px rgba(0,0,0,0.65), 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.sg-album { margin-top: 16px; font-size: 20px; font-weight: 650; text-align: center; }
+.sg-meta { margin-top: 4px; font-size: 12.5px; color: #8b93a7; text-align: center; }
+
+.sg-row { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+.sg-play {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  background: none;
+  color: #eef1f8;
+  font-size: 12px;
+  cursor: pointer;
+  flex: none;
+}
+.sg-play.on { background: var(--accent); color: #10131b; }
+.sg-pick {
+  flex: 1;
+  padding: 9px 10px;
+  border-radius: 9px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: #eef1f8;
+  font-size: 13px;
+  outline: none;
+}
+.sg-pick option, .sg-pick optgroup { background: #161a24; }
+.sg-noprev { margin-top: 8px; font-size: 11.5px; color: #fbbf24; text-align: center; }
+
+.sg-picker {
+  position: relative;
+  margin-top: 20px;
+  height: 30px;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.07);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+  touch-action: none;
+  cursor: pointer;
+}
+.sg-picker-win {
+  position: absolute; top: 0; bottom: 0;
+  background: color-mix(in srgb, var(--accent) 26%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 72%, transparent);
+  border-radius: 7px;
+  cursor: grab;
+}
+.sg-picker-h {
+  position: absolute; top: -4px; bottom: -4px;
+  width: 10px; border-radius: 4px;
+  background: var(--accent);
+  box-shadow: 0 0 7px var(--accent);
+  cursor: ew-resize;
+}
+.sg-h-l { left: -5px; }
+.sg-h-r { right: -5px; }
+.sg-picker-head {
+  position: absolute; top: -4px; bottom: -4px;
+  width: 2px; background: #fff;
+  box-shadow: 0 0 6px #fff;
+  pointer-events: none;
+}
+.sg-times { margin-top: 7px; font-size: 11px; color: #6a7288; text-align: center; font-variant-numeric: tabular-nums; }
+
+.sg-nav { display: flex; gap: 10px; margin-top: 20px; }
+.sg-nav button {
+  flex: 1;
+  padding: 11px 0;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.13);
+  background: none;
+  color: #dbe1ef;
+  font-size: 13px;
+  cursor: pointer;
+}
+.sg-nav button:disabled { opacity: 0.3; cursor: default; }
+.sg-nav .sg-next { background: color-mix(in srgb, var(--accent) 30%, transparent); border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+
+.sg-hint { margin-top: 14px; font-size: 11px; color: #545c70; letter-spacing: 0.06em; }
+
+/* phone: finger-sized targets, art that fits narrow screens */
+@media (pointer: coarse), (max-width: 600px) {
+  .sg-card { max-width: 94vw; padding: 16px; }
+  .sg-art { width: min(72vw, 300px); height: min(72vw, 300px); }
+  .sg-picker { height: 44px; }
+  .sg-picker-h { width: 22px; top: -6px; bottom: -6px; }
+  .sg-h-l { left: -11px; }
+  .sg-h-r { right: -11px; }
+  .sg-play { width: 48px; height: 48px; }
+  .sg-nav button { padding: 15px 0; font-size: 14px; }
+  .sg-hint { display: none; }
+}

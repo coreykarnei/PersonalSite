@@ -1,0 +1,382 @@
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; height: 100%; }
+
+.ar-root {
+  --bg: #07080c;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 700px at 22% 8%, #12151f 0%, rgba(18,21,31,0) 60%),
+    radial-gradient(1000px 800px at 85% 100%, #0d1119 0%, rgba(13,17,25,0) 55%),
+    var(--bg);
+  color: #eef1f8;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.ar-loading { display: grid; place-items: center; color: #8b93a7; }
+
+.ar-header {
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 5000;
+  padding: 26px 80px 46px 38px;
+  pointer-events: none;
+  background: radial-gradient(120% 120% at 0% 0%, rgba(7,8,12,0.94) 0%, rgba(7,8,12,0.7) 42%, rgba(7,8,12,0) 78%);
+}
+.ar-header h1 { margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
+.ar-header p { margin: 5px 0 0; font-size: 12.5px; color: #8b93a7; }
+
+/* search + genre filters (replaces the old passive legend) */
+.ar-controls {
+  position: absolute;
+  top: 16px; right: 24px;
+  z-index: 5000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+  max-width: 480px;
+}
+.ar-search {
+  width: 230px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(16,19,27,0.8);
+  color: #eef1f8;
+  font-size: 12px;
+  outline: none;
+  backdrop-filter: blur(6px);
+}
+.ar-search::placeholder { color: #6a7288; }
+.ar-search:focus { border-color: rgba(255,255,255,0.3); }
+.ar-chips { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; }
+.ar-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(16,19,27,0.6);
+  color: #8b93a7;
+  font-size: 10.5px;
+  cursor: pointer;
+}
+.ar-chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); display: inline-block; }
+.ar-chip.on { background: color-mix(in srgb, var(--accent) 22%, rgba(16,19,27,0.7)); border-color: color-mix(in srgb, var(--accent) 65%, transparent); color: #eef1f8; }
+.ar-chip-clear { color: #cdd4e4; }
+.ar-cover.is-off { opacity: 0.08; }
+.ar-cover.is-off:hover { opacity: 0.5; }
+
+.ar-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: grab;
+  scrollbar-width: thin;
+  scrollbar-color: #2a2f3d transparent;
+  touch-action: none;
+}
+.ar-scroll:active { cursor: grabbing; }
+.ar-stage { position: relative; }
+
+.ar-guide { position: absolute; inset: 0; pointer-events: none; z-index: 8500; }
+.ar-guide-line { stroke: currentColor; stroke-width: 1.4; stroke-dasharray: 2 4; opacity: 0.8; filter: drop-shadow(0 0 5px currentColor); }
+.ar-guide-dot { fill: currentColor; filter: drop-shadow(0 0 5px currentColor); }
+
+.ar-cover {
+  position: absolute;
+  border-radius: 4px;
+  box-shadow: 0 5px 16px rgba(0,0,0,0.55);
+  cursor: pointer;
+  user-select: none;
+}
+/* re-flows animate — the field breathes around your edits instead of snapping.
+   Gated until after first paint so load doesn't fly covers in from a corner. */
+.ar-root.is-ready .ar-cover {
+  transition:
+    left 260ms cubic-bezier(.25,.7,.3,1),
+    top 260ms cubic-bezier(.25,.7,.3,1),
+    width 260ms cubic-bezier(.25,.7,.3,1),
+    height 260ms cubic-bezier(.25,.7,.3,1),
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+.ar-root.is-ready .ar-cover.is-dragging { transition: transform 160ms ease, box-shadow 160ms ease; }
+.ar-cover:hover { transform: scale(1.05); }
+.ar-cover.is-dragging { transform: scale(1.03); cursor: grabbing; }
+.ar-cover img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+.ar-cover:hover { box-shadow: 0 8px 22px rgba(0,0,0,0.7), 0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent); }
+.ar-cover.is-sel {
+  box-shadow:
+    0 14px 40px rgba(0,0,0,0.75),
+    0 0 0 1.5px color-mix(in srgb, var(--accent) 85%, transparent),
+    0 0 34px 3px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.ar-cover.is-edited::after {
+  content: "";
+  position: absolute;
+  top: -4px; right: -4px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+/* my proposals: hollow dot — becomes solid (yours) the moment you touch it */
+.ar-cover.is-proposed::after {
+  content: "";
+  position: absolute;
+  top: -4px; right: -4px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: none;
+  border: 1.5px solid var(--accent);
+  opacity: 0.8;
+}
+.ar-noart {
+  display: grid; place-items: center;
+  width: 100%; height: 100%;
+  font-size: 9px; color: #6a7288;
+  text-align: center; overflow: hidden; padding: 3px;
+  background: #161a24; border-radius: 4px;
+}
+
+.ar-axis { position: absolute; left: 0; z-index: 3; pointer-events: none; }
+.ar-axis-line {
+  position: absolute; top: 0; height: 1px; left: 30px;
+  background: linear-gradient(90deg, rgba(120,130,155,0) 0%, rgba(120,130,155,0.5) 4%, rgba(120,130,155,0.5) 97%, rgba(120,130,155,0.2) 100%);
+}
+/* year boundary hash line */
+.ar-tick-line {
+  position: absolute;
+  top: -8px;
+  width: 1px;
+  height: 16px;
+  background: rgba(120, 130, 155, 0.55);
+}
+/* the year number scrolls with you, pinned between its hash lines */
+.ar-yearspan {
+  position: absolute;
+  top: 10px;
+  height: 24px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.ar-yearspan .ar-year {
+  position: sticky;
+  left: 42px;
+  display: inline-block;
+  margin-top: 0;
+  pointer-events: auto;
+  cursor: ew-resize;
+  padding: 2px 10px;
+}
+.ar-yearspan .ar-year:hover, .ar-yearspan .ar-year.is-scaled { color: #cdd4e4; }
+.ar-year { font-size: 12.5px; font-variant-numeric: tabular-nums; letter-spacing: 0.06em; color: #6a7288; }
+.ar-axis-arrow { position: absolute; top: -8px; }
+.ar-axis-arrow path { fill: none; stroke: rgba(120, 130, 155, 0.45); stroke-width: 1.2; }
+
+/* edit HUD */
+.ar-hud {
+  position: fixed;
+  left: 50%; bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 9500;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 10px 16px 10px 10px;
+  border-radius: 13px;
+  background: rgba(16,19,27,0.96);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.7);
+  backdrop-filter: blur(10px);
+}
+.ar-hud-art { width: 52px; height: 52px; border-radius: 7px; object-fit: cover; box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent); }
+.ar-hud-info { min-width: 130px; max-width: 240px; }
+.ar-hud-album { font-size: 13.5px; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ar-hud-artist { font-size: 11px; color: #8b93a7; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ar-hud-songrow { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+.ar-play {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  background: none;
+  color: #eef1f8;
+  font-size: 9px;
+  cursor: pointer;
+  flex: none;
+}
+.ar-play.on { background: var(--accent); color: #10131b; }
+.ar-songpick {
+  max-width: 190px;
+  padding: 4px 6px;
+  border-radius: 7px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: #cdd4e4;
+  font-size: 11px;
+  outline: none;
+}
+.ar-songpick option { background: #161a24; }
+.ar-hud-song { font-size: 11px; color: #cdd4e4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ar-noprev { font-size: 10px; color: #fbbf24; }
+
+/* snippet picker: drag handles to set the loop window inside the 30s preview */
+.ar-picker {
+  position: relative;
+  margin-top: 8px;
+  height: 20px;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.07);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+  touch-action: none;
+  cursor: pointer;
+}
+.ar-picker-win {
+  position: absolute;
+  top: 0; bottom: 0;
+  background: color-mix(in srgb, var(--accent) 26%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 70%, transparent);
+  border-radius: 5px;
+  cursor: grab;
+}
+.ar-picker-h {
+  position: absolute;
+  top: -3px; bottom: -3px;
+  width: 8px;
+  border-radius: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+  cursor: ew-resize;
+}
+.ar-picker-h-l { left: -4px; }
+.ar-picker-h-r { right: -4px; }
+.ar-picker-head {
+  position: absolute;
+  top: -3px; bottom: -3px;
+  width: 2px;
+  background: #fff;
+  box-shadow: 0 0 5px #fff;
+  pointer-events: none;
+}
+.ar-picker-times {
+  position: absolute;
+  right: 4px; top: -14px;
+  font-size: 9px;
+  color: #6a7288;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+/* corner grip on the selected cover: drag to any size ([ ] snaps to the ladder) */
+.ar-grip {
+  position: absolute;
+  right: -2px; bottom: -2px;
+  width: 15px; height: 15px;
+  border-right: 2.5px solid var(--accent);
+  border-bottom: 2.5px solid var(--accent);
+  border-radius: 0 0 4px 0;
+  cursor: nwse-resize;
+  filter: drop-shadow(0 0 4px var(--accent));
+}
+
+/* while dragging, covers respond with quick linear motion (physics, not easing) */
+.ar-root.is-phys .ar-cover { transition: left 90ms linear, top 90ms linear, width 90ms linear, height 90ms linear; }
+.ar-root.is-phys .ar-cover.is-dragging { transition: none; }
+.ar-hud-sizes { display: flex; gap: 3px; }
+.ar-size {
+  min-width: 32px; padding: 7px 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.13);
+  background: none;
+  color: #aab2c6;
+  font-size: 11px;
+  cursor: pointer;
+}
+.ar-size.on { background: var(--accent); border-color: var(--accent); color: #10131b; font-weight: 700; }
+.ar-reset {
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.13);
+  background: none;
+  color: #8b93a7;
+  font-size: 11px;
+  cursor: pointer;
+}
+.ar-hud-hint { font-size: 10px; color: #545c70; max-width: 150px; line-height: 1.5; }
+
+/* view-mode playback: the playing cover glows and breathes */
+.ar-cover.is-playing {
+  z-index: 8800 !important;
+  box-shadow:
+    0 14px 40px rgba(0,0,0,0.75),
+    0 0 0 1.5px color-mix(in srgb, var(--accent) 85%, transparent),
+    0 0 44px 5px color-mix(in srgb, var(--accent) 50%, transparent);
+  animation: ar-breathe 2.6s ease-in-out infinite;
+}
+@keyframes ar-breathe {
+  0%, 100% { transform: scale(1.04); }
+  50% { transform: scale(1.09); }
+}
+
+/* hover tooltip (same language as the original timeline page) */
+.ar-cover:hover { z-index: 8500 !important; }
+.ar-tip {
+  position: absolute;
+  z-index: 9200;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  min-width: 140px;
+  max-width: 250px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: rgba(16, 19, 27, 0.93);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  animation: ar-pop 150ms ease;
+}
+.ar-tip-song {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.25;
+  border-left: 2px solid var(--accent);
+  padding-left: 7px;
+  margin-left: -2px;
+}
+.ar-tip-meta { margin-top: 4px; font-size: 11.5px; color: #aab2c6; }
+.ar-tip-album { color: #cdd4e4; }
+.ar-tip-genre {
+  margin-top: 3px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  opacity: 0.9;
+}
+@keyframes ar-pop {
+  from { opacity: 0; transform: translate(-50%, -94%); }
+  to { opacity: 1; transform: translate(-50%, -100%); }
+}
+
+.ar-hint {
+  position: absolute;
+  right: 26px; bottom: 18px;
+  z-index: 5;
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #545c70;
+  pointer-events: none;
+}
